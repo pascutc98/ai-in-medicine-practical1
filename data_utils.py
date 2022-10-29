@@ -76,8 +76,9 @@ def normalize(img: np.ndarray, mask: np.ndarray):
     """
     # ------------------------- ADD YOUR CODE HERE ----------------------------
     #print(img.shape, mask.shape)
-    mask = np.array(mask, dtype=bool)
-    normalized_img = img - np.mean(img, where=mask) / np.std(img, where=mask)
+    mask_bool = np.array(mask, dtype=bool)
+    normalized_img = img - np.mean(img, where=mask_bool) / np.std(img, where=mask_bool)
+    normalized_img = normalized_img*mask
     #print(normalized_img.shape)
     # --------------------------------- END -----------------------------------
     return normalized_img
