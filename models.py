@@ -42,7 +42,7 @@ class BrainAgeCNN(nn.Module):
         # self.bnn1_5 = nn.BatchNorm3d(self.num_features*128)
         # self.maxp1_5 = nn.MaxPool3d(kernel_size = 2, stride=2, padding=0)
 
-        self.fc1 = nn.Linear(2048, 1)
+        self.fc1 = nn.Linear(1024, 4)
         # ------------------------------- END ---------------------------------
 
     def forward(self, imgs: Tensor) -> Tensor:
@@ -71,7 +71,8 @@ class BrainAgeCNN(nn.Module):
 
         # x1_b5 = m(self.conv1_5(x2_b4))
         # x2_b5 = self.maxp1_5(self.bnn1_5(m(self.conv2_5(x1_b5))))
-        print(x.shape[0]*x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4])
+        #print(x.shape)
+        #print(x.shape[0]*x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4])
         x = x.view(-1, x.shape[0]*x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4])
         pred = self.fc1(x)
         
@@ -97,7 +98,7 @@ class BrainAgeCNN(nn.Module):
         # ----------------------- ADD YOUR CODE HERE --------------------------
         print(pred)
         print(labels)
-        loss = torch.sqrt(F.mse_loss(labels.float(), pred.float()))
+        loss = F.mse_loss(labels.float(), pred.float())
         print(loss)
 
         # ------------------------------- END ---------------------------------
