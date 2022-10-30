@@ -53,6 +53,7 @@ class BrainAgeCNN(nn.Module):
         :return pred: Batch of predicted ages. Shape (N)
         """
         # ----------------------- ADD YOUR CODE HERE --------------------------
+        imgs = imgs.type(torch.cuda.FloatTensor)
         print(imgs.shape)
         m = nn.ReLU()
 
@@ -94,8 +95,11 @@ class BrainAgeCNN(nn.Module):
         pred = self(imgs)  # (N)
 
         # ----------------------- ADD YOUR CODE HERE --------------------------
-        loss_type = nn.MSELoss()
-        loss = loss_type(pred.float(),labels.float())
+        print(pred)
+        print(labels)
+        loss = torch.sqrt(F.mse_loss(labels.float(), pred.float()))
+        print(loss)
+
         # ------------------------------- END ---------------------------------
 
         if return_prediction:
