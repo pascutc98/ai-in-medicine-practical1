@@ -25,9 +25,9 @@ def get_image_dataloaders(
     val_ds = BrainAgeImageDataset('val', img_size)
     test_ds = BrainAgeImageDataset('test', img_size)
 
-    train_dl = DataLoader(train_ds, batch_size, shuffle=True, num_workers=num_workers)
-    val_dl = DataLoader(val_ds, batch_size, shuffle=False, num_workers=num_workers)
-    test_dl = DataLoader(test_ds, batch_size, shuffle=False, num_workers=num_workers)
+    train_dl = DataLoader(train_ds, batch_size, shuffle=True, num_workers=num_workers, drop_last=True)
+    val_dl = DataLoader(val_ds, batch_size, shuffle=False, num_workers=num_workers, drop_last=True)
+    test_dl = DataLoader(test_ds, batch_size, shuffle=False, num_workers=num_workers, drop_last=True)
 
     return {'train': train_dl, 'val': val_dl, 'test': test_dl}
 
