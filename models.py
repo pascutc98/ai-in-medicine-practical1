@@ -77,7 +77,7 @@ class BrainAgeCNN(nn.Module):
         x = self.maxp1_4(self.relu2_4(self.bnn1_4(self.conv2_4(x))))
 
         x = x.view(-1, x.shape[0]*x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4])
-        pred = self.relu1_5(self.fc2(self.fc1(x))
+        pred = self.relu1_5(self.fc2(self.fc1(x)))
         
         # ------------------------------- END ---------------------------------
         return pred
