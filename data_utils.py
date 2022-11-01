@@ -127,10 +127,10 @@ def prefetch_samples(
     num_processes: int = 4
 ) -> np.ndarray:
     load_fn = partial(load_and_preprocess, img_size=img_size)
-    res = [load_fn(ID) for ID in IDs]
+    # res = [load_fn(ID) for ID in IDs]
     # To speed up loading, comment the line above and uncomment the two below.
-    # with Pool(num_processes) as p:
-    #     res = p.map(load_fn, IDs)
+    with Pool(num_processes) as p:
+      res = p.map(load_fn, IDs)
     return np.array(res)[:, None]
 
 
