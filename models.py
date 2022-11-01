@@ -46,9 +46,11 @@ class BrainAgeCNN(nn.Module):
         self.relu2_4 = nn.ReLU()
         self.maxp1_4 = nn.MaxPool3d(kernel_size = 2, stride=2, padding=0)
 
-        self.fc1 = nn.Linear(2048, 1024)
+        self.fc1 = nn.Linear(4096, 2048)
         #self.dropout = nn.Dropout(p=0.5)
-        self.fc2 = nn.Linear(1024, 8)
+        self.fc2 = nn.Linear(2048, 1024)
+
+        self.fc3 = nn.Linear(1024, 16)
         self.relu1_5 = nn.ReLU()
 
        
@@ -77,7 +79,7 @@ class BrainAgeCNN(nn.Module):
         x = self.maxp1_4(self.relu2_4(self.bnn1_4(self.conv2_4(x))))
 
         x = x.view(-1, x.shape[0]*x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4])
-        pred = self.relu1_5(self.fc2(self.fc1(x)))
+        pred = self.relu1_5(self.fc3(self.fc2(self.fc1(x))))
         
         # ------------------------------- END ---------------------------------
         return pred
